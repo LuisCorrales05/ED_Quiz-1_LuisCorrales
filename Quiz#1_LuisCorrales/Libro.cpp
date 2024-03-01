@@ -27,13 +27,12 @@ Libro::Libro(ifstream& entrada) {
 }
 
 bool Libro::guardar(ofstream& salida) {
-	return serialize(salida, this);
+	return serialize(salida, (Libro*)this);
 }
 
 void Libro::deserialize(ifstream& entrada, Libro* libro) {
 	libro->Codigo = sstring::deserialize(entrada);
 	libro->NombreLibro = sstring::deserialize(entrada);
-
 	if (!entrada.good())
 		throw - 1;
 }
@@ -42,7 +41,6 @@ void Libro::deserialize(ifstream& entrada, Libro* libro) {
 bool Libro::serialize(ofstream& salida, Libro* libro) {
 	sstring::serialize(salida, libro->Codigo);
 	sstring::serialize(salida, libro->NombreLibro);
-
 	return salida.good();
 }
 

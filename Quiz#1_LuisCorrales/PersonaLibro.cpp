@@ -29,7 +29,7 @@ PersonaLibro::PersonaLibro(ifstream& entrada) {
 }
 
 bool PersonaLibro::guardar(ofstream& salida) {
-	return serialize(salida, this);
+	return serialize(salida, (PersonaLibro*)this);
 }
 
 void PersonaLibro::deserialize(ifstream& entrada, PersonaLibro* pl) {
@@ -57,6 +57,11 @@ void PersonaLibro::MostrarPersonaLibro()
 }
 
 string PersonaLibro::toString() const {
-	// Devuelve una representación en cadena de PersonaLibro
-	return "Cedula: " + CedulaPersona + ", Codigo del libro: " + CodigoLibro;
+	stringstream r;
+	r << "-----------------  D A T O S   P E R S O N A / L I B R O   ----------------" << endl;
+	r << "---- Cedula Persona: " << CedulaPersona << endl;
+	r << "---- Codigo Libro: " << CodigoLibro << endl;
+	r << "---------------------------------------------------------------------------" << endl;
+	return r.str();
+
 }

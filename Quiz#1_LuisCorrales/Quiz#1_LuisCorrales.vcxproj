@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="interfaz.cpp" />
     <ClCompile Include="Libro.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="sstring.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="interfaz.h" />
     <ClInclude Include="iterador.h" />
     <ClInclude Include="iteradorLista.h" />
     <ClInclude Include="Libro.h" />
