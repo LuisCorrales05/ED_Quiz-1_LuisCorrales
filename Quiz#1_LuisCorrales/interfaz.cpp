@@ -199,16 +199,45 @@ void interfaz::mostrarMenu() {
         {
             // Asociar libro y Persona
             cout << _listaPersonas->toString() << endl;
-            cout << _listaLibros->toString() << endl;
             cout << "Ingrese la cedula de la Persona: ";
             string cedulaP;
             cin >> cedulaP;
+            system("cls");
+            cout << _listaLibros->toString() << endl;
             cout << "Ingresa el codigo del libro: ";
             string codigoLib;
             cin >> codigoLib;
-            nueva_personaLibro = new PersonaLibro(codigoLib, cedulaP);
-            _listaPersonaLibros->agregarFinal(nueva_personaLibro);
 
+            bool verficador_cedula = false;
+            bool verificar_codigo = false;
+
+            iteradorLista<Persona>* iteradorPersonas = _listaPersonas->obtenerIterador();
+            while (iteradorPersonas->masElementos()) {
+                Persona* personaActual = iteradorPersonas->proximoElemento();
+                if (personaActual->getCedula() == cedulaP) {
+                    verficador_cedula = true;
+                    break;
+                }
+            }
+
+            iteradorLista<Libro>* iteradorLibro = _listaLibros->obtenerIterador();
+            while (iteradorLibro->masElementos()) {
+                Libro* libroActual = iteradorLibro->proximoElemento();
+                if (libroActual->getCodigo() == codigoLib) {
+                    verificar_codigo = true;
+                    break;
+                }
+            }
+
+            if (verficador_cedula && verificar_codigo) {
+                nueva_personaLibro = new PersonaLibro(codigoLib, cedulaP);
+                _listaPersonaLibros->agregarFinal(nueva_personaLibro);
+                cout << "Asociación exitosa." << endl;
+            }
+            else {
+                cout << "Error, la cedula o el codigo no están registrados." << endl;
+            }
+            system("pause");
         }
         break;
 
