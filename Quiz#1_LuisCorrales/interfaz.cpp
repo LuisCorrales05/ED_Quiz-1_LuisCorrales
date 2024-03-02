@@ -137,10 +137,27 @@ void interfaz::mostrarMenu() {
                 cout << "El espacio no puede estar vacio, se debe de escribir el apellido de la persona: " << endl;
                 getline(cin, apellido);
             }
-            nuevaPersona = new Persona(cedula, nombre, apellido);
-            _listaPersonas->agregarFinal(nuevaPersona);
-            cout << "----------------------------------------------------------------------------" << endl;
-            cout << "¡La Persona fue registrado con exito!" << endl;
+
+            bool verficador_cedula = false;
+
+            iteradorLista<Persona>* iteradorPersonas = _listaPersonas->obtenerIterador();
+            while (iteradorPersonas->masElementos()) {
+                Persona* personaActual = iteradorPersonas->proximoElemento();
+                if (personaActual->getCedula() == cedula) {
+                    verficador_cedula = true;
+                    break;
+                }
+            }
+
+            if (!verficador_cedula) {
+                nuevaPersona = new Persona(cedula, nombre, apellido);
+                _listaPersonas->agregarFinal(nuevaPersona);
+                cout << "----------------------------------------------------------------------------" << endl;
+                cout << "¡La Persona fue registrado con exito!" << endl;
+            }
+            else {
+                cout << "¡La cedula ya se encuentra registrada!" << endl;
+            }
             system("pause");
             system("cls");
 
@@ -165,10 +182,26 @@ void interfaz::mostrarMenu() {
                 getline(cin, nombre);
             }
 
-            nuevoLibro = new Libro(codigo, nombre);
-            cout << "-------------------------------------------------------------------------------" << endl;
-            _listaLibros->agregarFinal(nuevoLibro);
-            cout << "¡El libro fue registrado con exito!" << endl;
+            bool verificar_codigo = false;
+            iteradorLista<Libro>* iteradorLibro = _listaLibros->obtenerIterador();
+            while (iteradorLibro->masElementos()) {
+                Libro* libroActual = iteradorLibro->proximoElemento();
+                if (libroActual->getCodigo() == codigo) {
+                    verificar_codigo = true;
+                    break;
+                }
+            }
+
+            if (!verificar_codigo) {
+                nuevoLibro = new Libro(codigo, nombre);
+                cout << "-------------------------------------------------------------------------------" << endl;
+                _listaLibros->agregarFinal(nuevoLibro);
+                cout << "¡El libro fue registrado con exito!" << endl;
+            }
+            else {
+                cout << "¡El codigo ya esta registrado!" << endl;
+            }
+            
             system("pause");
             system("cls");
         }
@@ -198,6 +231,7 @@ void interfaz::mostrarMenu() {
         case 5:
         {
             // Asociar libro y Persona
+            system("cls");
             cout << _listaPersonas->toString() << endl;
             cout << "Ingrese la cedula de la Persona: ";
             string cedulaP;
